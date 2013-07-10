@@ -1,0 +1,247 @@
+@ngdoc overview
+@name Contributing
+@description
+
+* <a href="#H1_1">Preface</a>
+* <a href="#H1_2">Contributing</a>
+* <a href="#H1_3">Checking Out and Building `MyWebClass`</a>
+* <a href="#H1_4">Applying Code Standards</a>
+* <a href="#H1_5">Submitting Your Changes</a>
+
+<a name="H1_1"></a>
+# Preface
+
+MyWebClass is an open source project licensed under the {@link
+http://github.com/mywebclass/ci/blob/master/LICENSE MIT license}. Your contributions are
+always welcome. When working with MyWebClass code base, please follow the guidelines provided on
+this page.
+
+This document was adapted from {@link http://docs.angularjs.org/misc/contribute AngularJS Documentation}.
+
+
+<a name="H1_2"></a>
+# Contributing
+
+This guide would primarily intended for the internal team that already given direct access to the github's
+account and several private tools. Public contribution will be addressed in another document with slight
+modifications.
+
+We'd love for you to contribute to our source code and to make MyWebClass.org even better than it is
+today! Here are the guidelines we'd like you to follow before you actually coding something:
+
+* Major changes that you intend to contribute to the project should be discussed first on our {@link
+https://basecamp.com/1856283/projects/2939953-user-login project basecamp} so that we can better
+coordinate our efforts, prevent  duplication of work, and help you to craft the change so that it
+is successfully accepted upstream.
+
+* Product definition, requirements, architecture, system design and technology choices would be discussed
+in basecamp and published in the {@link https://github.com/mywebclass/docs.mywebclass.org project documentation}.
+
+* Basecamp's to do list would be used for general tasks and research spikes. Specific tasks are
+managed in github issues. Every programming work should have its issue item that's related to it.
+If you find that what's you're doing is not covered by any task then create the issue yourself and
+refer to the issue number in the commits.
+
+
+<a name="H1_3"></a>
+# Checking Out and Building the Project
+
+MyWebClass source code is hosted at {@link http://github.com/mywebclass/ Github}, which we also use to
+accept code contributions. To create a Github account, follow the instructions {@link https://github.com/signup/free here}.
+The project repository can be found at:
+
+* Main Build Script: <https://github.com/mywebclass/ci>
+* Main Backend Core System: <https://github.com/mywebclass/core-web-api>
+* Main Core Front End Framework: <https://github.com/mywebclass/users>
+* Users Module: <https://github.com/mywebclass/users>
+* Project Documentation: <https://github.com/mywebclass/docs.mywebclass.org>
+
+Several steps are needed to check out and build the Project:
+
+## Installation Dependencies
+
+Before you can build MyWebClass projects, you must install or configure the following dependencies on your
+machine:
+
+* We're assuming that the development environment is Ubuntu Linux 12.04 LTS or newer, which you can install
+directly on your workstation, on a virtual machine or remote in the cloud.
+
+* Git: The {@link http://help.github.com/mac-git-installation Github Guide to Installing Git} is
+quite a good source for information on Git.
+
+* {@link http://nodejs.org Node.js}: We use Node to run our application, generate the documentation, run a
+development web server, run tests, and generate a build. Depending on your system, you can install Node either from source or as a
+pre-packaged bundle. Do this to install the most recent Node release as a pre-packaged bundle:
+
+        sudo apt-get install python-software-properties python g++ make
+        sudo add-apt-repository ppa:chris-lea/node.js
+        sudo apt-get update
+        sudo apt-get install nodejs
+
+* Install several node modules:
+
+        sudo npm install -g bower coffee-script express grunt-cli jsdoc jshint mocha node-dev phantomjs yo
+
+* Install MongoDB as our primary database
+
+        sudo apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10
+        echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' \
+        | sudo tee /etc/apt/sources.list.d/10gen.list
+        sudo apt-get update
+        sudo apt-get install mongodb-10gen
+
+* Install Redis as our in-memory database
+
+        sudo add-apt-repository ppa:chris-lea/redis-server
+        sudo apt-get update
+        sudo apt-get install redis-server
+
+## Building MyWebClassJS
+
+To build MyWebClass, you check out the source code and use Grunt to generate the non-minified and
+minified MyWebClass files:
+
+1. To clone your Github repository, run:
+
+        git clone git@github.com:mywebclass/[project name]
+
+2. Do that for every related repository in <a href="#H1_3">the list</a>.
+
+3. To go to the project directory, run:
+
+        cd [project name]
+
+4. To add node.js dependencies
+
+        npm install
+
+5. To add docs and client components
+
+        bower install
+
+6. To build MyWebClass, run:
+
+        grunt package
+
+
+<a name="webserver"></a>
+## Running a Local Development Web Server
+
+To debug code and run end-to-end tests, it is often useful to have a local HTTP server. For this purpose, we have
+made available a local web server based on Node.js.
+
+1. To start the web server, run:
+
+        grunt server
+
+2. To access the local server, go to this URL:
+
+        http://localhost:3080/
+
+   By default, it serves the contents of the MyWebClass project directory.
+
+
+<a name="unit-tests"></a>
+## Running the Unit Test Suite
+
+To run code style checker (`jshint`):
+
+    grunt lint
+
+To run the unit tests:
+
+    grunt test
+
+## Running the end-to-end Test Suite
+
+Nothing here yet.
+
+## Generating the reference documentation
+
+    grunt jsdoc
+
+
+<a name="H1_4"></a>
+# Applying Code Standards
+
+To ensure consistency throughout the source code, keep these rules in mind as you are working:
+
+* All features or bug fixes must be tested by one or more <a href="#unit-tests">specs</a>. We write
+our server-side test suite with `mocha` and client-side test suite with ???
+
+* All public API methods must be documented with `ngdoc`, an extended version of `jsdoc` (we added
+support for markdown and templating via `@ngdoc` tag). To see how we document our APIs, please
+check out the existing ngdocs.
+
+* With the exceptions listed below, we follow the rules contained in {@link https://github.com/rwldrn/idiomatic.js
+Idiomatic JavaScript}:
+
+  * Wrap all code at 100 characters.
+
+  * We're **not** using comma first convention.
+
+  * We use whitespace rule in section 2.D instead of 2.A, which means we **don't** put extra spaces
+    inside of parentheses.
+
+  * Instead of complex inheritance hierarchies, we prefer simple objects. We use prototypical
+    inheritance only when absolutely necessary.
+
+  * We love functions and closures and, whenever possible, prefer them over objects.
+
+  * To write concise code that can be better minified, internally we use aliases that map to the
+    external API.
+
+  * We don't go crazy with type annotations for private internal APIs unless it's an internal API
+    that is used throughout the project. The best guidance is to do what makes the most sense.
+
+
+<a name="H1_5"></a>
+# Submitting Your Changes
+
+To create and submit a change:
+
+1. Make sure you understand the branching model we're using: {@link http://www.ustwo.co.uk/blog/branching-strategies-with-git/}
+
+2. Make sure that what you're doing is covered in an issue on Github.
+
+3. If you need to create a feature branch, create it:
+
+        git branch feature-branch
+        git checkout feature-branch
+
+Right now it's still better to commit code in the `master` branch until the architecture is stabilized.
+
+4. Make sure your code has plenty of tests (that pass).
+
+5. Group together related changes to a single commit, but try to make each commit as small as possible,
+so don't lump unrelated changes in a single commit.
+
+6. Don't commit code with syntax errors. Code with failed unit tests are ok (in a feature branchOA), especially
+if you write the unit tests first.
+
+5. Commit your changes and create a descriptive commit message (the commit message is used to generate release notes,
+   please check out Angular's
+   [commit message conventions](https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit#).
+   Note that the issue number should be referenced in the commit message.
+
+6. If you created a feature branch, push your branch to Github:
+
+        git push origin feature-branch
+
+If not, just push it to the master branch
+
+        git push origin master
+
+7. Your push would trigger a jenkins build. Make sure that the build is successful in the
+{@link http://ci.monimus.com:8080/jenkins jenkins interface} and the new application is deployed in the
+{@link http://target.monimus.com:3080 target server}.
+
+8. Study the static code analysis done by {@link http://ci.monimus.com:8080/sonar sonar} and fix your
+code if there's a problem.
+
+9. Go to {@link http://node.mywebclass.org:8040 barkeep}, our code review system. Make sure you have `repos:[project name]`
+in the search box and you can see your commit. Ask someone to review your code.
+
+That's it! Thank you for your contribution!
+
+Report bugs in this document in github issue.
