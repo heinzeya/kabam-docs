@@ -52,7 +52,7 @@ The project repository can be found at:
 
 * Main Build Script: <https://github.com/mywebclass/ci>
 * Main Backend Core System: <https://github.com/mywebclass/core-web-api>
-* Main Core Front End Framework: <https://github.com/mywebclass/users>
+* Main Core Front End Framework: <https://github.com/mywebclass/core-web-frontend>
 * Users Module: <https://github.com/mywebclass/users>
 * Project Documentation: <https://github.com/mywebclass/docs.mywebclass.org>
 
