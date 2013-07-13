@@ -4,6 +4,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-ngdocs');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-copy');
 
   // Project configuration.
   grunt.initConfig({
@@ -11,18 +12,26 @@ module.exports = function(grunt) {
     ngdocs: {
       options: {
         dest: 'docs',
-        html5Mode: true,
-        title: "Developer's Guide"
+        html5Mode: false,
+        title: "MyWebClass Project Documentation"
       },
-      tutorial: {
-        src: ['content/misc/*.ngdoc'],
-        title: 'Developer\' Guide'
+      devguide: {
+        src: ['content/devguide/*.ngdoc'],
+        title: 'Developer Guide'
+      }
+    },
+
+    copy: {
+      main: {
+        src: 'img/**/*',
+        dest: 'docs/'
       }
     },
 
     connect: {
       options: {
-        keepalive: true
+        keepalive: true,
+        base: 'docs'
       },
       server: { }
     },
@@ -31,6 +40,6 @@ module.exports = function(grunt) {
   });
 
   // Default task(s).
-  grunt.registerTask('default', ['clean', 'ngdocs', 'connect']);
+  grunt.registerTask('default', ['clean', 'ngdocs', 'copy', 'connect']);
 
 };

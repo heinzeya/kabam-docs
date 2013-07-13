@@ -1,0 +1,9 @@
+@ngdoc overview
+@name Architecture Notes
+@description
+
+# High Level Architecture
+
+The Framework's Core Structure
+
+![Deployment Diagram](img/devguide/deployment_diagram.png)
