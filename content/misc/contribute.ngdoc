@@ -239,7 +239,7 @@ If not, just push it to the master branch
 8. Study the static code analysis done by {@link http://ci.monimus.com:8080/sonar sonar} and fix your
 code if there's a problem.
 
-9. Go to {@link http://node.mywebclass.org:8040 barkeep}, our code review system. Make sure you have `repos:[project name]`
+9. Go to {@link http://ci.monimus.com:8040 barkeep}, our code review system. Make sure you have `repos:[project name]`
 in the search box and you can see your commit. Ask someone to review your code.
 
 That's it! Thank you for your contribution!
