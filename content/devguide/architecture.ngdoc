@@ -4,6 +4,51 @@
 
 # High Level Architecture
 
-The Framework's Core Structure
+##The Framework's Core Structure
+
+This is the high level Deployment Diagram depicting various element of the core architecture.
 
 ![Deployment Diagram](img/devguide/deployment_diagram.png)
+
+The elements are:
+
+1. **client**, a web-based frontend running in a browser or native application in mobile devices.
+
+2. **proxy server**, a server that is serving the resources and caching
+
+3. **core web api** or **ganglion**, it serves the initial main page, provide the main REST API,
+and as a ganglion act as master module, controller for workers. The master module do
+not cares about every appendage. It just sends the task to workqueue with hope that task will be
+done. There can be more than ONE master. The other module can act as the other ganglia.
+
+4. **spine**, system to transfer tasks. Technically this is redis cluster, that can store data and
+is fault tolerant.
+
+5. **appendage** - worker modules. There can be a lot of modules, and if every one of them fails,
+his functions can be easily taken by other one. They do accept jobs from every master module that
+post suitable job for them.
+
+6. **listener** - can emit events, when something has happened to system. Cannot issue tasks.
+
+## Main Messaging Workflow
+
+![Sequence Diagram](img/devguide/spine_sequence_diagram.png)
+
+Suppose there's something that's triggering an event. Say a user in the client want to see the about
+page. The about page are supposed to displays information about what modules are installed with their
+version.
+
+Let's say that the main application doesn't actually know what are the modules that's currently active.
+The action that it's going to do is that it'll send the information about itself. It lets the spine
+knows what it's going to do.
+
+The spine distributed that event to the workers / appendages / other modules. The worker decide whether
+or not it has something to do with that event, then in this case each sends the return adding the
+information about it's own name and version.
+
+The spine collects the replies, integrate them and sends them to the main app. Then the main apps will
+continue its action, which is sending the aggregated information to the client.
+
+This is a 'pre-hook', because the main action would wait and let the processing happens first before its
+own response. A post hook would be like github calling webhook to jenkins after a commit is done. The main
+application would do its processing and let others know.
