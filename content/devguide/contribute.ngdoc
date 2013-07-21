@@ -51,9 +51,11 @@ accept code contributions. To create a Github account, follow the instructions {
 The project repository can be found at:
 
 * Main Build Script: <https://github.com/mywebclass/ci>
-* Main Backend Core System: <https://github.com/mywebclass/core-web-api>
-* Main Core Front End Framework: <https://github.com/mywebclass/core-web-frontend>
-* Users Module: <https://github.com/mywebclass/users>
+* Main MyWebClass Application: <https://github.com/mywebclass/mwc_meta>
+* Backend Core System: <https://github.com/mywebclass/mwc_core>
+* Example Plugin: <https://github.com/mywbclass/mwc_plugin_example>
+* Spine (Messaging Queue) Plugin: <https://github.com/mywebclass/mwc_plugin_spine>
+* Users Plugin: <https://github.com/mywebclass/mwc_plugin_user>
 * Project Documentation: <https://github.com/mywebclass/docs.mywebclass.org>
 
 Several steps are needed to check out and build the Project:
@@ -115,13 +117,23 @@ minified MyWebClass files:
 
         npm install
 
-5. To add docs and client components
+5. To add client components (only for repos with client-side scripts in it)
 
         bower install
 
-6. To build MyWebClass, run:
+6. To build the application, there's `mwc_meta` repository that would include the core application and its plugins
+   in the dependencies and download them from github's repository. Individual unit tests and e2e tests would be run
+   here.
 
-        grunt package
+        npm install
+        npm start
+
+7. For deployment purposes, there's `ci` repository that would copy the end result to a build directory by executing:
+
+        grunt
+
+   This repository would contain expanded options that can build different combination of plugins and different versions
+   of them to be deployed on different servers.
 
 
 <a name="webserver"></a>
@@ -130,13 +142,13 @@ minified MyWebClass files:
 To debug code and run end-to-end tests, it is often useful to have a local HTTP server. For this purpose, we have
 made available a local web server based on Node.js.
 
-1. To start the web server, run:
+1. To start the web server, run (on mwc_meta project):
 
-        grunt server
+        npm start
 
 2. To access the local server, go to this URL:
 
-        http://localhost:3080/
+        http://localhost:3000/
 
    By default, it serves the contents of the MyWebClass project directory.
 
@@ -146,7 +158,7 @@ made available a local web server based on Node.js.
 
 To run code style checker (`jshint`):
 
-    grunt lint
+    grunt jshint
 
 To run the unit tests:
 
