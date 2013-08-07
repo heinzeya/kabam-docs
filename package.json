@@ -3,13 +3,18 @@
   "version": "0.0.1",
   "description": "Documentation for mywebclass.org projects",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "npm": "*",
+    "install": "*",
+    "lodash": "*",
+    "wrench": "*"
+  },
   "devDependencies": {
-    "grunt": "~0.4.1",
-    "grunt-ngdocs": "~0.1.2",
-    "grunt-contrib-connect": "~0.3.0",
-    "grunt-contrib-clean": "~0.4.1",
-    "grunt-contrib-copy": "~0.4.1"
+    "grunt": "*",
+    "grunt-ngdocs": "*",
+    "grunt-contrib-connect": "*",
+    "grunt-contrib-clean": "*",
+    "grunt-contrib-copy": "*"
   },
   "repository": {
     "type": "git",
