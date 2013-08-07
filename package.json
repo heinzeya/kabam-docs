@@ -6,6 +6,7 @@
   "dependencies": {
     "npm": "*",
     "install": "*",
+    "commander": "*",
     "lodash": "*",
     "wrench": "*"
   },
