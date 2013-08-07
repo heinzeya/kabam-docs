@@ -1,5 +1,5 @@
 
-[![Stories in Ready](http://badge.waffle.io/mywebclass/docs.mywebclass.org.png)](http://waffle.io/mywebclass/docs.mywebclass.org)  
+[![Stories in Ready](http://badge.waffle.io/mywebclass/docs.mywebclass.org.png)](http://waffle.io/mywebclass/docs.mywebclass.org)
 
 docs.mywebclass.org
 ===================
@@ -34,4 +34,4 @@ $ grunt
 
 ## License
 
-TBD.
+[CC BY 3.0](http://creativecommons.org/licenses/by/3.0/)
