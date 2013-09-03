@@ -11,9 +11,9 @@
 <a name="H1_1"></a>
 # Preface
 
-MyWebClass is an open source project licensed under the {@link
+Kabam is an open source project licensed under the {@link
 http://github.com/mywebclass/ci/blob/master/LICENSE MIT license}. Your contributions are
-always welcome. When working with MyWebClass code base, please follow the guidelines provided on
+always welcome. When working with Kabam code base, please follow the guidelines provided on
 this page.
 
 This document was adapted from {@link http://docs.angularjs.org/misc/contribute AngularJS Documentation}.
@@ -26,7 +26,7 @@ This guide would primarily intended for the internal team that already given dir
 account and several private tools. Public contribution will be addressed in another document with slight
 modifications.
 
-We'd love for you to contribute to our source code and to make MyWebClass.org even better than it is
+We'd love for you to contribute to our source code and to make the Kabam Framework even better than it is
 today! Here are the guidelines we'd like you to follow before you actually coding something:
 
 * Major changes that you intend to contribute to the project should be discussed first on our {@link
@@ -35,10 +35,11 @@ coordinate our efforts, prevent  duplication of work, and help you to craft the 
 is successfully accepted upstream.
 
 * Product definition, requirements, architecture, system design and technology choices would be discussed
-in basecamp and published in the {@link https://github.com/mywebclass/docs.mywebclass.org project documentation}.
+in basecamp and published in the {@link https://github.com/mykabam/kabam-docs project documentation}.
 
-* Basecamp's to do list would be used for general tasks and research spikes. Specific tasks are
-managed in github issues. Every programming work should have its issue item that's related to it.
+* {@link https://monimus.atlassian.net JIRA with Agile Boards} would be used for general tasks and research spikes.
+JIRA would manage tasks that are in the form of Epics, Features, User Stories and Tasks.
+Every programming work should have its issue item that's related to it.
 If you find that what's you're doing is not covered by any task then create the issue yourself and
 refer to the issue number in the commits.
 
@@ -46,23 +47,21 @@ refer to the issue number in the commits.
 <a name="H1_3"></a>
 # Checking Out and Building the Project
 
-MyWebClass source code is hosted at {@link http://github.com/mywebclass/ Github}, which we also use to
+Kabam source code is hosted at {@link http://github.com/mykabam/ Github}, which we also use to
 accept code contributions. To create a Github account, follow the instructions {@link https://github.com/signup/free here}.
 The project repository can be found at:
 
-* Main Build Script: <https://github.com/mywebclass/ci>
-* Main MyWebClass Application: <https://github.com/mywebclass/mwc_meta>
-* Backend Core System: <https://github.com/mywebclass/mwc_core>
-* Example Plugin: <https://github.com/mywbclass/mwc_plugin_example>
-* Spine (Messaging Queue) Plugin: <https://github.com/mywebclass/mwc_plugin_spine>
-* Users Plugin: <https://github.com/mywebclass/mwc_plugin_user>
-* Project Documentation: <https://github.com/mywebclass/docs.mywebclass.org>
+* Main Kabam Framework: <https://github.com/mykabam/kabam>
+* Backend Kernel: <https://github.com/mykabam/kabam-kernel>
+* Main Web Frontend: <https://github/mykabam/core-web-frontend>
+* Other Plugins: <https://github.com/mykabam/> with the names of `kabam-plugins-*`
+* Project Documentation: <https://github.com/mykabam/kabam-docs>
 
 Several steps are needed to check out and build the Project:
 
 ## Installation Dependencies
 
-Before you can build MyWebClass projects, you must install or configure the following dependencies on your
+Before you can build Kabam projects, you must install or configure the following dependencies on your
 machine:
 
 * We're assuming that the development environment is Ubuntu Linux 12.04 LTS or newer, which you can install
@@ -73,7 +72,15 @@ quite a good source for information on Git.
 
 * {@link http://nodejs.org Node.js}: We use Node to run our application, generate the documentation, run a
 development web server, run tests, and generate a build. Depending on your system, you can install Node either from source or as a
-pre-packaged bundle. Do this to install the most recent Node release as a pre-packaged bundle:
+pre-packaged bundle. One of the most flexible system for managing node is {@link https://github.com/creationix/nvm nvm}
+Do:
+
+        curl https://raw.github.com/creationix/nvm/master/install.sh | sh
+        nvm install 0.10
+        nvm use 0.10
+        nvm alias default 0.10
+
+Or do this to install the most recent Node release as a pre-packaged bundle from a ubuntu repository:
 
         sudo apt-get install python-software-properties python g++ make
         sudo add-apt-repository ppa:chris-lea/node.js
@@ -98,14 +105,14 @@ pre-packaged bundle. Do this to install the most recent Node release as a pre-pa
         sudo apt-get update
         sudo apt-get install redis-server
 
-## Building MyWebClassJS
+## Building Kabam
 
-To build MyWebClass, you check out the source code and use Grunt to generate the non-minified and
-minified MyWebClass files:
+To build Kabam, you check out the source code and use Grunt to generate the non-minified and
+minified Kabam files:
 
 1. To clone your Github repository, run:
 
-        git clone git@github.com:mywebclass/[project name]
+        git clone git@github.com:mykabam/[project name]
 
 2. Do that for every related repository in <a href="#H1_3">the list</a>.
 
@@ -121,19 +128,22 @@ minified MyWebClass files:
 
         bower install
 
-6. To build the application, there's `mwc_meta` repository that would include the core application and its plugins
-   in the dependencies and download them from github's repository. Individual unit tests and e2e tests would be run
-   here.
+6. To run the application:
 
-        npm install
         npm start
 
-7. For deployment purposes, there's `ci` repository that would copy the end result to a build directory by executing:
+7. To run the unit tests:
 
-        grunt
+        npm test
 
-   This repository would contain expanded options that can build different combination of plugins and different versions
-   of them to be deployed on different servers.
+8. To create a new application based on kabam:
+
+        npm link kabam
+        mkdir new-app
+        cd new-app
+        kabam create
+        npm install
+        kabam publishAssets
 
 
 <a name="webserver"></a>
@@ -179,7 +189,7 @@ Nothing here yet.
 To ensure consistency throughout the source code, keep these rules in mind as you are working:
 
 * All features or bug fixes must be tested by one or more <a href="#unit-tests">specs</a>. We write
-our server-side test suite with `mocha` and client-side test suite with ???
+our server-side test suite with `mocha` and client-side test suite with `karma`.
 
 * All public API methods must be documented with `ngdoc`, an extended version of `jsdoc` (we added
 support for markdown and templating via `@ngdoc` tag). To see how we document our APIs, please
@@ -214,16 +224,15 @@ To create and submit a change:
 
 1. Make sure you understand the branching model we're using: {@link http://www.ustwo.co.uk/blog/branching-strategies-with-git/}
 
-2. Make sure that what you're doing is covered in an issue on Github.
+2. Make sure that what you're doing is covered in an issue on JIRA  .
 
 3. If you need to create a feature branch, create it:
 
         git branch feature-branch
         git checkout feature-branch
 
-Right now it's still better to commit code in the `master` branch until the architecture is stabilized.
-
-4. Make sure your code has plenty of tests (that pass).
+4. Make sure your code has plenty of unit tests that passed. You can put unit tests that hasn't finished in pending mode by
+   skipping it (`it.skip()`)
 
 5. Group together related changes to a single commit, but try to make each commit as small as possible,
 so don't lump unrelated changes in a single commit.
@@ -245,14 +254,17 @@ If not, just push it to the master branch
         git push origin master
 
 7. Your push would trigger a jenkins build. Make sure that the build is successful in the
-{@link http://ci.monimus.com:8080/jenkins jenkins interface} and the new application is deployed in the
+{@link http://cd.monimus.com:8080/jenkins jenkins interface} and the new application is deployed in the
 {@link http://target.monimus.com:3080 target server}.
 
-8. Study the static code analysis done by {@link http://ci.monimus.com:8080/sonar sonar} and fix your
+8. Study the static code analysis done by {@link http://cd.monimus.com:9000 sonar} and fix your
 code if there's a problem.
 
-9. Go to {@link http://ci.monimus.com:8040 barkeep}, our code review system. Make sure you have `repos:[project name]`
-in the search box and you can see your commit. Ask someone to review your code.
+9. Create a pull request on github's site when you think the code is ready for merging. You can assign other developer
+other than the lead developer on the component to do code review. Lead developer should also review the code. Code reviews
+are done by reading and commenting the source code (in github) and trying to execute and run the unit tests.
+
+10. Merge the pull requests
 
 That's it! Thank you for your contribution!
 
