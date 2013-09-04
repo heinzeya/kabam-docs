@@ -172,7 +172,7 @@ To run code style checker (`jshint`):
 
 To run the unit tests:
 
-    grunt test
+    npm test
 
 ## Running the end-to-end Test Suite
 
