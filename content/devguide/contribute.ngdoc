@@ -136,7 +136,32 @@ minified Kabam files:
 
         npm test
 
-8. To create a new application based on kabam:
+8. Make sure you have an updated version of the application, along with updated dependencies. Since we're still using
+   github repos for our download source (instead of npm repo) the contents won't be updated by `npm update` command.
+   This commands make sure you have the updated version:
+
+        rm -rf node_modules
+        npm install
+
+9. If you're debugging a plugin and running it from another package, it's a good idea to use `npm link` command.
+   It will setup a symbolic link between the modules. For example if we're debugging `kabam-plugin-analytics` which
+   is being run in `kabam`, then:
+
+        cd kabam-plugin-analytics
+        npm install
+        npm link
+
+    This will create a symbolic link in 'global' node_modules for `kabam-plugin-analytics`
+
+        cd ../kabam
+        npm install
+        npm link kabam-plugin-analytics
+
+    This will replace the downloaded kabam-plugin-analytics with a symbolic link to the one in global node-modules,
+    which points to the one in the local repository, so you can edit it and see it run live in the next directory.
+
+
+10. To create a new application based on kabam:
 
         npm link kabam
         mkdir new-app
@@ -172,7 +197,7 @@ To run code style checker (`jshint`):
 
 To run the unit tests:
 
-    grunt test
+    npm test
 
 ## Running the end-to-end Test Suite
 
@@ -180,7 +205,7 @@ Nothing here yet.
 
 ## Generating the reference documentation
 
-    grunt jsdoc
+    grunt docs
 
 
 <a name="H1_4"></a>
@@ -224,7 +249,7 @@ To create and submit a change:
 
 1. Make sure you understand the branching model we're using: {@link http://www.ustwo.co.uk/blog/branching-strategies-with-git/}
 
-2. Make sure that what you're doing is covered in an issue on JIRA  .
+2. Make sure that what you're doing is covered in an issue on JIRA.
 
 3. If you need to create a feature branch, create it:
 
@@ -232,12 +257,12 @@ To create and submit a change:
         git checkout feature-branch
 
 4. Make sure your code has plenty of unit tests that passed. You can put unit tests that hasn't finished in pending mode by
-   skipping it (`it.skip()`)
+   writing the function without its callback function or by skipping it (`it.skip()`)
 
 5. Group together related changes to a single commit, but try to make each commit as small as possible,
 so don't lump unrelated changes in a single commit.
 
-6. Don't commit code with syntax errors. Code with failed unit tests are ok (in a feature branchOA), especially
+6. Don't commit code with syntax errors. Code with failed unit tests are ok (in a feature branch), especially
 if you write the unit tests first.
 
 5. Commit your changes and create a descriptive commit message (the commit message is used to generate release notes,
@@ -249,7 +274,7 @@ if you write the unit tests first.
 
         git push origin feature-branch
 
-If not, just push it to the master branch
+   If not, just push it to the master branch
 
         git push origin master
 
