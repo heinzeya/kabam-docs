@@ -1,0 +1,58 @@
+@ngdoc overview
+@name Getting Started
+@description
+
+# Getting Started
+Welcome to Kabam! This guide will help you creating a simple application using Kabam Framework.
+
+## Prerequisites
+
+* Basic <a href="http://nodejs.org/download/">Node.js</a> knowledge, including an installed version of Node.js and NPM.
+* installed MongoDB (for window users - <a href="http://www.mongodb.org/downloads">link</a>)
+* installed Redis (for window users - <a href="https://github.com/rgl/redis/downloads">link</a>)
+* installed git and have github account
+
+## Building Kabam
+
+Before we start to create app, we need to clone and build latest Kabam framework.
+
+    $ git clone https://github.com/mykabam/kabam.git
+
+Go to the project directory.
+
+    $ cd Kabam
+	
+Install NodeJS dependencies.
+
+    $ npm install
+
+## Creating Kabam Global link
+
+Create globally installed Kabam link - for Windows Users open cmd as administrator (required for symlink creation)
+
+    $ npm link
+	
+## Generating Kabam App
+
+Create app- Please type necessary information.you will need Github account.
+
+    $ mkdir [app name]
+	$ cd [app name]
+	$ Kabam create
+	
+Install dependencies
+
+    $ npm install
+	$ bower install
+	$ kabam publishAssets
+	
+## Start Kabam App
+
+Running in local
+
+	$ npm start
+	
+Access in browser
+
+	http://localhost:3000/
+
